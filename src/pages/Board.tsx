@@ -29,8 +29,13 @@ const Board: React.FC = () => {
 
   return (
     <Container>
-      <If condition={data.length !== 0}>
-        <div>Updated {data.time?.updateduk}</div>
+      <If condition={data === 'error'}>
+        <h3> Something went wrong! </h3>
+      </If>
+      <If condition={data !== 'error' && data.length !== 0}>
+        <Subtitle>{data.chartName}</Subtitle>
+        <Subtitle>Updated {data.time?.updateduk} | Updating real time each 10 seconds</Subtitle>
+        <Subtitle>{data.disclaimer}</Subtitle>
         <Table tableData={data} columns={tableColumns} />
       </If>
     </Container>
@@ -38,7 +43,9 @@ const Board: React.FC = () => {
 };
 
 const Container = styled.div`
-  margin-top: 50px;
+  margin: 50px;
 `;
-
+const Subtitle = styled.div`
+  margin-bottom: 10px;
+`;
 export default Board;

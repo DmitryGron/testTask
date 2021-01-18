@@ -5,10 +5,10 @@ import { RowData } from 'src/types/Table';
 import { tableIcons } from './TableIcons';
 
 const combine = (data: RowData) => {
-  return Object.keys(data).reduce((acc: any, value: any) => {
-    acc = [...acc, ...data[value]];
-    return acc;
-  }, []);
+  return Object.keys(data).reduce(
+    (acc: any, value: any) => (data[value] ? [...acc, ...data[value]] : acc),
+    []
+  );
 };
 
 const Table: React.FC<any> = ({ tableData, columns }) => {
@@ -24,7 +24,7 @@ const Table: React.FC<any> = ({ tableData, columns }) => {
         filtering: false,
         paging: false,
         headerStyle: {
-          backgroundColor: '#01579b',
+          backgroundColor: '#7cb4df',
           color: '#FFF'
         }
       }}
