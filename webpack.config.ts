@@ -17,6 +17,9 @@ const webpackConfig = (env): Configuration => ({
         filename: "build.js"
     },
     devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
         historyApiFallback: true,
       },
     module: {

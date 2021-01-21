@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "webpack-cli serve --mode=development --env development --open --hot --port 3001",
     "build": "webpack --mode=production --env production --progress",
+    "prod": "webpack serve --open",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
     "test": "jest --config ./jest.config.json",
