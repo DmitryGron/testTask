@@ -21,7 +21,7 @@ const Board: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (data.length === 0 && data !== 'loading') {
+    if (data.length === 0) {
       dispatch(thunkFetchCurrencies());
     }
     const interval = setInterval(fetchData, 10000);

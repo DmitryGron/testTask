@@ -22,7 +22,6 @@ export const thunkFetchPage = (url: string) => async (dispatch: Dispatch) => {
       headers: { 'Access-Control-Allow-Origin': '*' }
     });
     if (response.data) {
-      console.log(response.data);
       dispatch(fetchPageSuccess(response.data));
     }
   } catch (error) {
