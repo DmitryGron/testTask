@@ -1,0 +1,19 @@
+{
+    "roots": [
+        "<rootDir>/src"
+    ],
+    "transform": {
+        ".*\\.tsx?$": "ts-jest",
+        ".*\\.ts?$": "ts-jest",
+        "^.+\\.svg$": "jest-svg-transformer"
+    },
+    "testRegex": "((\\.|/*.)(spec))\\.(ts?|tsx?)$",
+    "moduleFileExtensions": [
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "node"
+    ]
+}

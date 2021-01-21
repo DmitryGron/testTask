@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import Board from 'src/pages/Board';
+import Board from '../../pages/Board';
 
 const App: React.FC = () => {
   return (
