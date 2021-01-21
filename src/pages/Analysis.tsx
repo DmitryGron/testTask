@@ -64,7 +64,6 @@ const Analysis: React.FC = () => {
       temp.innerHTML = data.trim();
       const sorted = getSortedTags(temp);
       const deepness = getDomDepthLevel(temp);
-      console.log('deepness', deepness);
       setDeepTags(deepness);
       setUniqueTags(sorted.unique.sort());
       setDuplicateTags(sorted.duplicates.sort());
