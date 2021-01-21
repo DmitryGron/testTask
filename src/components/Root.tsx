@@ -1,4 +1,4 @@
-import App from '../layout/App/App';
+import App from '../layout/App';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

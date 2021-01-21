@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import If from '../components/If';
 import Table from '../components/TableComponent/Table';
@@ -29,6 +30,11 @@ const Board: React.FC = () => {
 
   return (
     <Container>
+      <LinkContainer>
+        <Link style={{ marginBottom: '20px' }} to='/analysis'>
+          Analysis
+        </Link>
+      </LinkContainer>
       <If condition={data === 'error'}>
         <h3> Something went wrong! Please reload page </h3>
       </If>
@@ -51,4 +57,9 @@ const Container = styled.div`
 const Subtitle = styled.div`
   margin-bottom: 10px;
 `;
+
+const LinkContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
 export default Board;
