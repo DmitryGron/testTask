@@ -7,10 +7,8 @@ import { Link } from 'react-router-dom';
 import { getPage } from '../store/analysis/reducers';
 import If from '../components/If';
 
-const getSortedTags = (innerHTML: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = innerHTML.trim();
-  const elements = temp.getElementsByTagName('*');
+const getSortedTags = (data: HTMLDivElement) => {
+  const elements = data.getElementsByTagName('*');
   const unique = [];
   const duplicates = [];
 
@@ -25,17 +23,49 @@ const getSortedTags = (innerHTML: string) => {
   return { unique, duplicates };
 };
 
+const getDomDepthLevel = (root = document.documentElement) => {
+  let pathInfo = {
+    route: [],
+    unique: [],
+    duplicates: [],
+    level: 0
+  };
+  for (let i = 0, j = root.children.length; i < j; i++) {
+    const curNodePathInfo = getDomDepthLevel(root.children[i] as HTMLElement);
+    if (curNodePathInfo.level > pathInfo.level) {
+      pathInfo = curNodePathInfo;
+    }
+  }
+  Array.from(pathInfo.route).filter((element, index) => {
+    const tagName = pathInfo.route[index].tagName.toLowerCase();
+    if (pathInfo.unique.indexOf(tagName) === -1) {
+      pathInfo.unique.push(tagName);
+    } else {
+      pathInfo.duplicates.push(tagName);
+    }
+  });
+  pathInfo.route.unshift(root);
+  pathInfo.level += 1;
+  return pathInfo;
+};
+
 const Analysis: React.FC = () => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const data = useSelector(getPage);
   const [uniqueTags, setUniqueTags] = useState([]);
   const [duplicateTags, setDuplicateTags] = useState([]);
+  const [deep, setDeepTags] = useState<any>();
 
   const [input, setInput] = useState('');
 
   useEffect(() => {
     if (data.length > 0) {
-      const sorted = getSortedTags(data);
+      const temp = document.createElement('div');
+      temp.innerHTML = data.trim();
+      const sorted = getSortedTags(temp);
+      const deepness = getDomDepthLevel(temp);
+      console.log('deepness', deepness);
+      setDeepTags(deepness);
       setUniqueTags(sorted.unique.sort());
       setDuplicateTags(sorted.duplicates.sort());
     }
@@ -69,6 +99,15 @@ const Analysis: React.FC = () => {
         <Container>
           duplicate tags:
           {duplicateTags.map((tag) => ` ${tag}`)}
+        </Container>
+      </If>
+      <If condition={deep}>
+        <Container>
+          <p>deep level: {deep?.level}</p>
+          <p>
+            deep tags:
+            {deep?.duplicates.sort().map((tag: string) => ` ${tag}`)}
+          </p>
         </Container>
       </If>
     </Container>
